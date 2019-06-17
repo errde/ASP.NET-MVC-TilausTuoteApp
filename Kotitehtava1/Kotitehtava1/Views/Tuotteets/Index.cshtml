@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Kotitehtava1.Models.Tuotteet>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nimi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ahinta)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nimi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ahinta)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TuoteID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.TuoteID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TuoteID })
+        </td>
+    </tr>
+}
+
+</table>

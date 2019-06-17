@@ -1,0 +1,76 @@
+﻿
+@model IEnumerable<Kotitehtava1.Models.Tuotteet>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            $(".showProductId").click(function () {
+                var productId = $(this).data("productid");
+                alert(productId);
+            });
+        });
+
+        $(function () {
+            $("#poistaTuote").click(function () {
+                var productId = $(this).data("productid");
+                alert(productId);
+            });
+        });
+    </script>
+}
+
+
+<h1>Tuotteet</h1>
+
+<h2>Tuotteita @Model.Count() kpl</h2>
+
+<table class="table">
+    <thead>
+
+        <tr>
+            <th>Tuote ID</th>
+            <th>Nimi</th>
+            <th>a Hinta</th>
+            <th>Kuvalinkki</th>
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        @foreach (Kotitehtava1.Models.Tuotteet prod in Model)
+        {
+            <tr>
+
+                <td>@prod.TuoteID</td>
+                <td>@prod.Nimi</td>
+                <td>@prod.Ahinta</td>
+                <td>@prod.ImageLink</td>
+                <td><button class="btn showProductId" data-ProductID="@prod.TuoteID">Muokkaa</button></td>
+                <td><button class="btn" data-ProductID="@prod.TuoteID" id="poistaTuote">Poista</button></td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+<script>
+    const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
+
+    const comparer = (idx, asc) => (a, b) => ((v1, v2) =>
+        v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2)
+    )(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
+
+    document.querySelectorAll('th').forEach(th => th.addEventListener('click', (() => {
+        const table = th.closest('table');
+        const tbody = table.querySelector('tbody');
+        Array.from(tbody.querySelectorAll('tr'))
+            .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
+            .forEach(tr => tbody.appendChild(tr));
+    })));
+</script>
+
+

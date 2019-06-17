@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Kotitehtava1.Models.Asiakkaat>
+
+@{
+    ViewBag.Title = "Index";
+
+}
+@{
+    if (TempData["message"] != null)
+    {
+        <script type="text/javascript">
+        alert(@Html.Raw(Json.Encode(TempData["message"])));
+        </script>
+    }
+}
+@{
+    if (TempData["message2"] != null)
+    {
+        <script type="text/javascript">
+        alert(@Html.Raw(Json.Encode(TempData["message2"])));
+        </script>
+    }
+}
+
+<h2>Asiakkaat</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nimi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Osoite)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Postitoimipaikat.Postitoimipaikka)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nimi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Osoite)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Postitoimipaikat.Postitoimipaikka)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.AsiakasID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.AsiakasID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.AsiakasID })
+            </td>
+        </tr>
+    }
+
+</table>
